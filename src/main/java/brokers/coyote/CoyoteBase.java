@@ -9,14 +9,15 @@ import org.junit.Test;
 import java.util.List;
 
 public class CoyoteBase {
-
-    public void getLatLng(String city, String state) {
+//String city, String state
+    @Test
+    public void getLatLng() {
 
         RestAssured.baseURI = "https://nominatim.openstreetmap.org/";
         RestAssured.basePath = "search";
         Response response = RestAssured.given().accept(ContentType.JSON)
-                .queryParam("city", city)
-                .queryParam("state", state)
+                .queryParam("city", "Chicago")
+                .queryParam("state", "IL")
                 .queryParam("country", "USA")
                 .queryParam("format", "json")
                 // .queryParam("addressdetails", 1)
