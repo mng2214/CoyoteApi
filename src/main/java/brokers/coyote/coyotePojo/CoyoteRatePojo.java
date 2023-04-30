@@ -1,14 +1,12 @@
-package brokers.coyote;
+package brokers.coyote.coyotePojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CoyotePojo {
-   private List<CoyoteLoadDetailsPojo> loadDetailsList;
+public class CoyoteRatePojo {
+    private String value;
 }

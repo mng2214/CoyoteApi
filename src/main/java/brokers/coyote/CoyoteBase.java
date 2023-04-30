@@ -40,6 +40,28 @@ public class CoyoteBase {
        System.out.println(lat + "\n" + lon);
     }
 
+    @Test
+    public void getCityState() {
+
+        RestAssured.baseURI = "https://nominatim.openstreetmap.org/";
+        RestAssured.basePath = "reverse";
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .queryParam("format", "geojson")
+                .queryParam("lat", "44.50155")
+                .queryParam("lon", "11.33989")
+                .when()
+                .get()
+                .then().statusCode(200)
+                //.log().all()
+                .extract().response();
+        JsonPath jsonPath = response.jsonPath();
+        String city = jsonPath.get("features.properties.address.city").toString();
+        String state = jsonPath.get("features.properties.address.state").toString();
+        System.out.println(city);
+
+
+    }
+
 
     public static String getToken() {
 
@@ -52,7 +74,6 @@ public class CoyoteBase {
                 .when()
                 .post()
                 .then().statusCode(200)
-               // .log().body()
                 .extract().response();
 
         JsonPath jsonPath = response.jsonPath();
@@ -63,7 +84,8 @@ public class CoyoteBase {
     }
 
     public static void main(String[] args) {
-        System.out.println(CoyoteBase.getToken()); ;
+        System.out.println(CoyoteBase.getToken());
     }
+
 
 }

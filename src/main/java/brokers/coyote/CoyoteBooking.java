@@ -23,7 +23,7 @@ public class CoyoteBooking {
                 .header("Authorization", CoyoteBase.getToken())
                 .when().get()
                 .then().statusCode(200)
-                // .log().body()
+               // .log().body()
                 .extract().response();
 
 //        CoyotePojo parsedResponse = response.as(CoyotePojo.class);
@@ -31,7 +31,20 @@ public class CoyoteBooking {
 
 
         JsonPath jsonPath = response.jsonPath();
-        String s = jsonPath.get("loadDetails.equipment.equipmentType");
-        System.out.println(s);
+
+        String equipmentType = jsonPath.get("loadDetails.equipment.equipmentType").toString();
+        Object rate = jsonPath.get("loadDetails.rate.value");
+        String loadDistance = jsonPath.get("loadDetails.loadDistance.value").toString();
+       String weight = jsonPath.get("loadDetails.weight.value").toString();
+        String stops = jsonPath.get("loadDetails.stops[0].facility.address.cityName");
+
+        System.out.println(equipmentType);
+        System.out.println(rate);
+        System.out.println(loadDistance);
+        System.out.println(weight);
+        System.out.println(stops);
+
+
+
     }
 }
