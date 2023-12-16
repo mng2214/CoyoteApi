@@ -1,14 +1,9 @@
-package brokers.coyote;
+package com.coyote;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class CoyoteBooking {
     String loadID = "29100292";

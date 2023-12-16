@@ -1,4 +1,4 @@
-package brokers.coyote;
+package com.coyote;
 
 import io.cucumber.java.it.Ma;
 import io.restassured.RestAssured;
@@ -7,10 +7,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class CoyoteBase {
     //String city, String state
