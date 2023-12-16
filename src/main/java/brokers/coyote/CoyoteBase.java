@@ -29,7 +29,7 @@ public class CoyoteBase {
                 .when()
                 .get()
                 .then().statusCode(200)
-               // .log().all()
+                // .log().all()
                 .extract().response();
 
         // CoyotePojo parsedResponse = response.as(CoyotePojo.class);
@@ -37,7 +37,7 @@ public class CoyoteBase {
         List<String> lat = jsonPath.get("lat");
         List<String> lon = jsonPath.get("lon");
 //        String lat1 = String.valueOf(lat);
-       System.out.println(lat + "\n" + lon);
+        System.out.println(lat + "\n" + lon);
     }
 
     @Test
@@ -65,26 +65,21 @@ public class CoyoteBase {
 
     public static String getToken() {
 
-        RestAssured.baseURI = "https://api.coyote.com/connect/token";
-        Response response = RestAssured.given().accept(ContentType.JSON).contentType("application/x-www-form-urlencoded")
-                .formParam("client_id", "ROAFALINC")
-                .formParam("client_secret", "PDAWKLFaTtekCPNd")
-                .formParam("grant_type", "client_credentials")
-                .formParam("scope", "ExternalApi")
-                .when()
-                .post()
-                .then().statusCode(200)
-                .extract().response();
+        RestAssured.baseURI = "https://api.coyote.com/";
+        RestAssured.basePath = "connect/token";
 
-        JsonPath jsonPath = response.jsonPath();
-        String token_type = jsonPath.get("token_type");
-        String tokenOnly = jsonPath.get("access_token");
-        return token_type + " " + tokenOnly;
+        String clientId = "ANIINCIL";
+        String clientSecret = "uvvpEXjLtdz7QVph";
+        String grantType = "client_credentials";
 
-    }
+        Response response = RestAssured.given()
+                .formParam("client_id", clientId)
+                .formParam("client_secret", clientSecret)
+                .formParam("grant_type", grantType)
+                .when().log().all()
+                .post().then().log().all().extract().response();
 
-    public static void main(String[] args) {
-        System.out.println(CoyoteBase.getToken());
+        return "Bearer " +  response.jsonPath().getString("access_token");
     }
 
 
