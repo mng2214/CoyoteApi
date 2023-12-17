@@ -14,29 +14,49 @@ import java.util.Map;
 
 public class LatLon {
 
-    public static Map<String, String> getLatLng(String city, String state) {
-        Map<String, String> latLonMap = new HashMap<>();
+    public static Map<String, Double> getLatLng(String city, String state) {
+        Map<String, Double> latLonMap = new HashMap<>();
+
+        // Set base URL and path
         RestAssured.baseURI = Endpoints.geoUrl;
         RestAssured.basePath = Endpoints.geoUrlSearch;
-        Response response = RestAssured.given().accept(ContentType.JSON)
-                .queryParam("city", city)
-                .queryParam("state", state)
-                .queryParam("country", "USA")
-                .queryParam("format", "json")
+
+        // Define query parameters
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("city", city);
+        queryParams.put("state", state);
+        queryParams.put("country", "USA");
+        queryParams.put("format", "json");
+
+        // Send GET request
+        var response = RestAssured.given()
+                .accept(ContentType.JSON)
+                .queryParams(queryParams)
                 .when()
                 .get()
-                .then().statusCode(200)
-                .extract().response();
-        JsonPath jsonPath = response.jsonPath();
-        String lat = jsonPath.get("lat").toString().replace("[","").replace("]","");
-        String lon = jsonPath.get("lon").toString().replace("[","").replace("]","");
-        latLonMap.put("lat",lat);
-        latLonMap.put("lon",lon);
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        // Extract latitude and longitude as strings with square brackets
+        var jsonPath = response.jsonPath();
+        String latStr = jsonPath.getString("lat");
+        String lonStr = jsonPath.getString("lon");
+
+        // Remove square brackets and convert to double
+        double lat = Double.parseDouble(latStr.substring(1, latStr.length() - 1));
+        double lon = Double.parseDouble(lonStr.substring(1, lonStr.length() - 1));
+
+        // Put values in the map
+        latLonMap.put("lat", lat);
+        latLonMap.put("lon", lon);
+
         return latLonMap;
     }
 
 
     public static void main(String[] args) {
-        System.out.println("getLatLng(\"chicago\",\"il\") = " + getLatLng("nashville", "tn" ));
+        System.out.println("getLatLng(\"chicago\",\"il\") = " + getLatLng("nashville", "tn"));
     }
 }

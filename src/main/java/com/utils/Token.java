@@ -11,11 +11,11 @@ public class Token {
         RestAssured.baseURI = Endpoints.prod;
         RestAssured.basePath = Endpoints.tokenPath;
 
-        String clientId = ConfigReader.readProperty("clientId");
-        String clientSecret = ConfigReader.readProperty("clientSecret");
-        String grantType = ConfigReader.readProperty("grantType");
+        var clientId = ConfigReader.readProperty("clientId");
+        var clientSecret = ConfigReader.readProperty("clientSecret");
+        var grantType = ConfigReader.readProperty("grantType");
 
-        Response response = RestAssured.given()
+        var response = RestAssured.given()
                 .formParam("client_id", clientId)
                 .formParam("client_secret", clientSecret)
                 .formParam("grant_type", grantType)
@@ -24,4 +24,5 @@ public class Token {
 
         return "Bearer " + response.jsonPath().getString("access_token");
     }
+
 }

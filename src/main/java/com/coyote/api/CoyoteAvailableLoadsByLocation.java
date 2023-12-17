@@ -1,5 +1,7 @@
 package com.coyote.api;
 
+import com.coyote.requests.AvailableLoadsRequest;
+import com.models.Endpoints;
 import com.utils.Token;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -7,40 +9,20 @@ import org.junit.Test;
 
 public class CoyoteAvailableLoadsByLocation {
 
-    String cityOrigin = "chicago";
-    String stateOrigin = "il";
-
-    String cityDest = "";
-    String stateDest = "";
-
     @Test
     public void test() {
-        RestAssured.baseURI = "https://api.coyote.com/api/v1/AvailableLoads/search";
+
+        RestAssured.baseURI = Endpoints.prod;
+        RestAssured.basePath= Endpoints.getAvailableLoadByLocation;
 
         RestAssured.given()
+                .queryParam("page",1)
+                .queryParam("pageSize",10)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .header("Authorization", Token.getToken())
-                .body("""
-                        {
-                        "origin": {
-                        "location": {
-                        "latitude": -87.6244212,
-                        "longitude": 41.8755616
-                        },
-                        "deadheadRadius": {
-                        "value": 200,
-                        "unit": "Miles"
-                        },
-                        "appointment": {
-                        "appointmentStartDateTime": "2023-12-16T14:00:00-06:00",
-                        "appointmentEndDateTime": "2023-12-20T12:00:00-06:00"
-                        }
-                        },
-                        "equipmentType": "V",
-                        "mode": "TL_LTL"
-                        }
-                        """).log().all().when().post().then().log().all().statusCode(200);
+                .body(AvailableLoadsRequest.reqBuilder()).log().all().when().post().then().log().all().statusCode(200);
     }
+
 
 }
