@@ -1,12 +1,11 @@
-package brokers.coyote;
+package com.coyote.api;
 
-import brokers.coyote.CoyoteBase;
-import brokers.coyote.availibleLoads.AvailableLoadsRequest;
+import com.utils.Token;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 
-public class SearchByCity {
+public class CoyoteAvailableLoadsByLocation {
 
     String cityOrigin = "chicago";
     String stateOrigin = "il";
@@ -21,7 +20,7 @@ public class SearchByCity {
         RestAssured.given()
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .header("Authorization", CoyoteBase.getToken())
+                .header("Authorization", Token.getToken())
                 .body("""
                         {
                         "origin": {

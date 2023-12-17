@@ -1,4 +1,4 @@
-package brokers.coyote.availibleLoads;
+package com.models;
 
 public class CoyoteEnums {
 

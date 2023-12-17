@@ -1,10 +1,7 @@
-package brokers.coyote.availibleLoads;
+package com.coyote.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
-import javax.lang.model.util.Elements;
 
 @Data
 @AllArgsConstructor

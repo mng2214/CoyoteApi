@@ -1,5 +1,6 @@
-package brokers.coyote;
+package com.utils;
 
+import com.models.Endpoints;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -15,8 +16,8 @@ public class LatLon {
 
     public static Map<String, String> getLatLng(String city, String state) {
         Map<String, String> latLonMap = new HashMap<>();
-        RestAssured.baseURI = "https://nominatim.openstreetmap.org/";
-        RestAssured.basePath = "search";
+        RestAssured.baseURI = Endpoints.geoUrl;
+        RestAssured.basePath = Endpoints.geoUrlSearch;
         Response response = RestAssured.given().accept(ContentType.JSON)
                 .queryParam("city", city)
                 .queryParam("state", state)
