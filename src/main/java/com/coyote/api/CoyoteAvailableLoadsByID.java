@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class CoyoteAvailableLoadsByID {
 
-    String loadID = "30516444";
+    String loadID = "30542292";
 
     @Test
     public void findById() {
@@ -18,9 +18,9 @@ public class CoyoteAvailableLoadsByID {
         RestAssured.basePath = Endpoints.getAvailableLoadById + loadID;
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
+                .accept(ContentType.JSON).log().body()
                 .header("Authorization", Token.getToken())
-                .when().log().body().get()
+                .when().get()
                 .then().statusCode(200)
                 .log().body()
                 .extract().response();

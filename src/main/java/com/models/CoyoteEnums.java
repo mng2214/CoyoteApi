@@ -14,4 +14,8 @@ public class CoyoteEnums {
         LTL
     }
 
+    public enum Unit {
+        MILES
+    }
+
 }

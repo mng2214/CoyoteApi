@@ -25,4 +25,7 @@ public class Token {
         return "Bearer " + response.jsonPath().getString("access_token");
     }
 
+    public static void main(String[] args) {
+        System.out.println(getToken());
+    }
 }

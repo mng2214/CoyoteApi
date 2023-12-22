@@ -90,12 +90,12 @@ public class AvailableLoadsRequest {
         Map<String, Double> locationData = LatLon.getLatLng("chicago", "il");
 
         Origin.Appointment appointment = new Origin.Appointment();
-        appointment.setAppointmentStartDateTime("2023-12-18T10:00:00-06:00");
-        appointment.setAppointmentEndDateTime("2023-12-20T20:00:00-06:00");
+        appointment.setAppointmentStartDateTime("2023-12-20T10:00:00-06:00");
+        appointment.setAppointmentEndDateTime("2023-12-22T20:00:00-06:00");
 
         Origin.DeadheadRadius deadheadRadius = new Origin.DeadheadRadius();
         deadheadRadius.setValue(200);
-        deadheadRadius.setUnit("Miles");
+        deadheadRadius.setUnit(CoyoteEnums.Unit.MILES.name());
 
         Origin.Location location = new Origin.Location();
         location.setLatitude(locationData.get("lat"));
@@ -125,7 +125,7 @@ public class AvailableLoadsRequest {
 //        destination.setDeadheadRadius(deadheadRadiusDest);
 //        destination.setAppointment(appointmentDest);
 
-        return new AvailableLoadsRequest(origin, CoyoteEnums.EquipmentType.VR.toString(), CoyoteEnums.Mode.TL.toString());
+        return new AvailableLoadsRequest(origin, CoyoteEnums.EquipmentType.V.toString(), CoyoteEnums.Mode.TL.toString());
     }
 
 }

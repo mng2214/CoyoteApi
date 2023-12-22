@@ -57,6 +57,6 @@ public class LatLon {
 
 
     public static void main(String[] args) {
-        System.out.println("getLatLng(\"chicago\",\"il\") = " + getLatLng("nashville", "tn"));
+        System.out.println( getLatLng("des plaines", "il"));
     }
 }
